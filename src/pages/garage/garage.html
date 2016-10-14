@@ -1,0 +1,78 @@
+<ion-header>
+  <ion-navbar>
+    <button menuToggle>
+      <ion-icon class="main-menu-icon" name="menu"></ion-icon>
+    </button>
+    <ion-title>Garage</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content
+      pullingIcon="arrow-dropdown"
+      pullingText="Pull to refresh"
+      refreshingSpinner="circles"
+      refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <p class="update-header">Last Updated: {{ lastRefreshed | date: 'MM/dd HH:mm'}}</p>
+  <ion-list>
+    <ion-item *ngFor="let garage of garageStatuses">
+
+      <ion-row>
+        <ion-col>
+          <h1 class="garage-description">{{ garage.description }}</h1>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="garage.hasActionableStatus()">
+        <ion-col width-50>
+          <h2 class="column-descriptor">Last Update:</h2>
+        </ion-col>
+        <ion-col width-50>
+          <h2 class="align-right">{{ garage.lastHealthCheckDateTime | date: 'MM/dd HH:mm'}}</h2>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="garage.hasActionableStatus()">
+        <ion-col width-50>
+          <h2 class="column-descriptor">Current Status:</h2>
+        </ion-col>
+        <ion-col width-50>
+          <h2 class="align-right">{{ garage.currentDoorStatus | uppercase }}</h2>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="!garage.hasActionableStatus()">
+        <ion-col width-25>
+          <ion-icon class="warning-icon" name="warning" item-left></ion-icon>
+        </ion-col>
+        <ion-col width-75>
+          <h4 class="unknown-status">UNKNOWN STATUS!</h4>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="garage.isActionInProgress()">
+        <ion-col>
+          <button ion-button full round disabled color="light" class="action-in-progress">{{ garage.action }}</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="garage.shouldAllowAction(false)">
+        <ion-col>
+          <button ion-button full round color="danger" (click)="onGarageButtonClicked($event, garage)">Close</button>
+        </ion-col>
+      </ion-row>
+
+      <ion-row *ngIf="garage.shouldAllowAction(true)">
+        <ion-col>
+          <button ion-button full round color="secondary" (click)="onGarageButtonClicked($event, garage)">Open</button>
+        </ion-col>
+      </ion-row>
+
+    </ion-item>
+  </ion-list>
+</ion-content>

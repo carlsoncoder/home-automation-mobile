@@ -1,0 +1,43 @@
+page-garage {
+
+  .update-header {
+    text-align: center;
+    font-weight: bold;
+    color: #007aff;
+    margin-top: -5px;
+  }
+
+  .align-right {
+    text-align: right;
+  }
+
+  .garage-description {
+    font-weight: bold;
+  }
+
+  .column-descriptor {
+    font-weight: bold;
+  }
+
+  .warning-icon {
+    color: orangered;
+    font-size: 40px;
+  }
+
+  .unknown-status {
+    font-weight: bold;
+    margin-top: 20px !important;
+  }
+
+  .action-in-progress {
+    font-weight: bold;
+  }
+
+  .toast-message {
+    color: #27EA92;
+  }
+
+  .main-menu-icon {
+    font-size: 2.8em;
+  }
+}

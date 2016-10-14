@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Login</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <p *ngIf="loginFailed" class="failed-login-message">{{ failedLoginMessage }}</p>
+  <ion-list no-lines>
+    <form [formGroup]="loginForm">
+      <ion-item>
+        <ion-label stacked class="login-font">User Name</ion-label>
+        <ion-input [formControl]="userName" class="login-font" type="text" [class.invalid]="!userName.valid && (userName.touched || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="userName.hasError('required') && (userName.touched || submitAttempt)">
+        <p class="login-font">A user name is required</p>
+      </ion-item>
+
+      <ion-item>
+        <ion-label stacked class="login-font">Password</ion-label>
+        <ion-input [formControl]="password" type="password" [class.invalid]="!password.valid && (password.touched || submitAttempt)"></ion-input>
+      </ion-item>
+      <ion-item *ngIf="password.hasError('required') && (password.touched || submitAttempt)">
+        <p class="login-font">A password is required</p>
+      </ion-item>
+    </form>
+
+    <ion-row>
+      <ion-col width-50>
+        <button ion-button item left primary (click)="login()">Login</button>
+      </ion-col>
+      <ion-col width-50>
+        <button ion-button item-right color="danger" (click)="cancel()">Cancel</button>
+      </ion-col>
+    </ion-row>
+  </ion-list>
+</ion-content>
